@@ -127,3 +127,23 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+
+# media
+*jpg
+*gif
+*mp4
+*png
+
+
+*.exe
+*.out
+*.o
+
+*.vscode
+*.vs
+
+
+*/boost
+*/Eigen
