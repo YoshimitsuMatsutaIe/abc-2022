@@ -22,7 +22,7 @@
 * boost
 
 ## Python
-Python3です  
+Python3  
 必要なライブラリ一覧  
 
 * pyyaml
