@@ -130,11 +130,11 @@ dmypy.json
 
 
 
-# media
-*jpg
-*gif
-*mp4
-*png
+# # media
+# *jpg
+# *gif
+# *mp4
+# *png
 
 
 *.exe
