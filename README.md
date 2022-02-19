@@ -8,6 +8,7 @@
 * 常微分方程式を解く : [ode](/ode)
 * 線形二次レギュレータ : [lqr](/lqr)  
 * シンボリック演算 : [symbolic](/symbolic)  
+* その他（C関数の呼び出し，自動微分など）:[other](/other/)
 
 最後に総合演習として車両型倒立振子の制御シミュレーションを扱う．  
 * [exercise](/excercise/)
