@@ -25,7 +25,7 @@
 sudo apt install libeigen3-dev
 sudo apt install libboost-all-dev
 ```
-/usr/include/eigen3/，/usr/include/boost/にインストールされる．  
+`/usr/include/eigen3/`，`/usr/include/boost/`にインストールされる．  
 
 ## Python
 Python3  
