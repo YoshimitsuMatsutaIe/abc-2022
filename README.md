@@ -18,9 +18,14 @@
 ?  
 
 ## C++
-?  
-* Eigen
-* boost
+* Eigen  
+* boost  
+以下のコマンドでインストール  
+```bash
+sudo apt install libeigen3-dev
+sudo apt install libboost-all-dev
+```
+/usr/include/eigen3/，/usr/include/boost/にインストールされる．  
 
 ## Python
 Python3  
@@ -29,7 +34,7 @@ Python3
 * pyyaml
 * control  
 
-以下はAnacondaを使っている場合インストール不要  
+以下はAnacondaを使っている場合はインストール済み  
 * numpy
 * matplotlib
 * scipy
@@ -56,7 +61,7 @@ conda install
 
 <br>
 
-`]`を押してPkgモードに入り，以下のコマンドで一括インストール  
+juliaを起動し`]`を押してPkgモードに入る．以下のコマンドで一括インストール  
 ```julia
 add Plots,LaTeXStrings,DifferentialEquations,ParameterizedFunctions,DataFrames,CSV,Symbolics,Latexify,LinearAlgebra,MatrixEquations,BenchmarkTools
 ```
