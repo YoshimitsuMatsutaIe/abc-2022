@@ -9,7 +9,7 @@
 <img src="https://latex.codecogs.com/png.image?\dpi{120}&space;\bg_white&space;\dot{x}=ax" title="\bg_white \dot{x}=ax" />  
 <br>
 
-[src](exp_using_solver)  
+[src](exp_using_solver/main.cpp)  
 <br>
 
 ### 2 連立常微分方程式 : ローレンツ方程式
@@ -23,8 +23,8 @@
 p = 10, r = 26, b = 8/3  
 ```
 
-[eigen使用](lorenz)  
-[boost使用](lorenz_using_solver)  
+[eigen使用](lorenz/main.cpp)  
+[boost使用](lorenz_using_solver/main.cpp)  
 <br>
 
 ## グラフ
@@ -41,7 +41,7 @@ sudo apt install libeigen3-dev
 ```
 上のコマンドで`/usr/include/eigen3/`にインストールされる．  
 ### windows
-公式ページ[https://gitlab.com/libeigen/eigen/-/releases/3.4.0](https://gitlab.com/libeigen/eigen/-/releases/3.4.0)からダウンロードし，Eigenを使うソースコードと同じディレクトリに置いてください．  
+公式ページ[https://gitlab.com/libeigen/eigen/-/releases/3.4.0](https://gitlab.com/libeigen/eigen/-/releases/3.4.0)からダウンロードし，適当なディレクトリに置いてください．  
 
 ## boost  
 常微分方程式のソルバー`boost::odeint`を使用  
@@ -52,4 +52,4 @@ sudo apt install libeigen3-dev
 cmake -S . -B build
 cmake --build build/
 ```
-実行ファイルは`./build/main`．
+ビルド後，実行ファイルは`./build/main`にある．
