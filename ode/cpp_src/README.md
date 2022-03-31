@@ -9,7 +9,7 @@
 <img src="https://latex.codecogs.com/png.image?\dpi{120}&space;\bg_white&space;\dot{x}=ax" title="\bg_white \dot{x}=ax" />  
 <br>
 
-[src](lorenz)  
+[src](exp_using_solver)  
 <br>
 
 ### 2 連立常微分方程式 : ローレンツ方程式
@@ -23,7 +23,8 @@
 p = 10, r = 26, b = 8/3  
 ```
 
-[src](https://github.com/YoshimitsuMatsutaIe/ans_2022/blob/main/ODE/cpp_src/lorenz.c)  
+[eigen使用](lorenz)  
+[boost使用](lorenz_using_solver)  
 <br>
 
 ## グラフ
