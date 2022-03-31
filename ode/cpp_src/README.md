@@ -9,7 +9,7 @@
 <img src="https://latex.codecogs.com/png.image?\dpi{120}&space;\bg_white&space;\dot{x}=ax" title="\bg_white \dot{x}=ax" />  
 <br>
 
-[src](.lorenz)  
+[src](lorenz)  
 <br>
 
 ### 2 連立常微分方程式 : ローレンツ方程式
