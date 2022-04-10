@@ -10,7 +10,7 @@
 <br>
 
 2. 連立常微分方程式（ローレンツ方程式）  
-<img src=https://latex.codecogs.com/svg.image?\begin{pmatrix}\dot{x}\\\dot{y}\\\dot{z}\end{pmatrix}&space;=&space;\begin{pmatrix}-px&plus;py\\-xz&plus;rx-y\\xy-bz\end{pmatrix}>  
+<img src="https://latex.codecogs.com/svg.image?\begin{pmatrix}\dot{x}\\\dot{y}\\\dot{z}\end{pmatrix}&space;=&space;\begin{pmatrix}-px&plus;py\\-xz&plus;rx-y\\xy-bz\end{pmatrix}" title="\bg_white \dot{x}=ax">  
 <br>
 
 # 演習課題
