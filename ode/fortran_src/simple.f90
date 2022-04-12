@@ -7,9 +7,10 @@
 program main
 ! オイラー法
 
-    a = 1
-    b = 2
-    c = a + b
+    dxdt(x) = x
+    
+    x = 0.0
+    
     write(6,*) a, b, c
 
     end
