@@ -19,4 +19,7 @@
 <img src="https://latex.codecogs.com/png.latex?\bg_white&space;\frac{\mathrm{d}^2&space;x}{\mathrm{d}&space;t^2}&space;=&space;K(1-x^2)\frac{\mathrm{d}&space;x}{\mathrm{d}&space;t}-x">  
 <br>
 
+適当な初期値とパラメータを使うと，周期的な振動が起こります．  
+⇓イメージ  
+![pic](pic1.png)
 
