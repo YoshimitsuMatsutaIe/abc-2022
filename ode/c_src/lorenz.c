@@ -25,31 +25,14 @@ struct lorenz_param{
 };
 
 
-/**
- * @brief ローレンツ方程式
- * 
- * @param x 
- * @param x_dot 
- * @param p 
- */
-void lorenz(double *x, double *x_dot, struct lorenz_param p){
-    x_dot[0] = -p.p*x[0] + p.p*x[1];
-    x_dot[1] = -x[0]*x[2] + p.r*x[0] - x[1];
-    x_dot[2] = x[0]*x[1] - p.b*x[2];
+void lorenz(double *x, double *x_dot, struct lorenz_param* p){
+    x_dot[0] = -(*p).p*x[0] + (*p).p*x[1];
+    x_dot[1] = -x[0]*x[2] + (*p).r*x[0] - x[1];
+    x_dot[2] = x[0]*x[1] - (*p).b*x[2];
 }
 
 
-/**
- * @brief ルンゲクッタ法
- * 
- * @param imax 
- * @param dt 
- * @param x0 
- * @param t 
- * @param x 
- * @param p 
- */
-void runge_kutta(int imax, double dt, double *x0, double *t, double **x, struct lorenz_param p){
+void runge_kutta(int imax, double dt, double *x0, double *t, double **x, struct lorenz_param* p){
     // 初期値代入
     t[0] = 0.0;
     for (int i=0; i < N; i++){
@@ -69,12 +52,12 @@ void runge_kutta(int imax, double dt, double *x0, double *t, double **x, struct 
         lorenz(temp_x, k1, p);
 
         for (int j=0; j < N; j++){
-            temp_x[j] = x[i][j] + dt/2 * k1[j];
+            temp_x[j] = x[i][j] + 0.5 * dt * k1[j];
         }
         lorenz(temp_x, k2, p);
 
         for (int j=0; j < N; j++){
-            temp_x[j] = x[i][j] + dt/2 * k2[j];
+            temp_x[j] = x[i][j] + 0.5 * dt * k2[j];
         }
         lorenz(temp_x, k3, p);
 
@@ -84,7 +67,7 @@ void runge_kutta(int imax, double dt, double *x0, double *t, double **x, struct 
         lorenz(temp_x, k4, p);
 
         for (int j=0; j < N; j++){
-            x[i+1][j] = x[i][j] + dt/6*(k1[j] + 2*k2[j] + 2*k3[j] + k4[j]);
+            x[i+1][j] = x[i][j] + dt/6.0*(k1[j] + 2.0*k2[j] + 2.0*k3[j] + k4[j]);
         }
     }
 }
@@ -95,7 +78,7 @@ int main(){
     // 初期値など
     double x0[N] = {0.0, 4.0, 28.0};
 
-    struct lorenz_param param = {10.0, 28.0, 8/3};
+    struct lorenz_param param = {10.0, 28.0, 8.0/3.0};
     
     double dt = 0.01;
     double T = 50.0;
@@ -115,7 +98,7 @@ int main(){
     FILE *f;
 
     // ルンゲクッタ法
-    runge_kutta(imax, dt, x0, t, x, param);  // 解く
+    runge_kutta(imax, dt, x0, t, x, &param);  // 解く
 
     // csvに保存
     f = fopen("lorenz_runge_kutta.csv", "w");

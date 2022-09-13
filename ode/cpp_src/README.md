@@ -52,4 +52,4 @@ sudo apt install libeigen3-dev
 cmake -S . -B build
 cmake --build build/
 ```
-ビルド後，実行ファイルは`./build/main`にある．
+ビルド後，実行ファイルは`build/main`にある．

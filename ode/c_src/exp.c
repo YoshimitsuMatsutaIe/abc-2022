@@ -12,29 +12,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+double dx(double x, double a){return a * x;}
 
-/**
- * @brief 微分方程式
- * 
- * @param x 
- * @param a 
- * @return double 
- */
-double dx(double x, double a)
-{
-    return a * x;
-}
-
-/**
- * @brief オイラー法
- * 
- * @param imax 
- * @param dt 
- * @param x0 
- * @param t 
- * @param x 
- * @param a 
- */
 void euler(int imax, double dt, double x0, double *t, double *x, double a)
 {
     t[0] = 0.0;
@@ -47,18 +26,6 @@ void euler(int imax, double dt, double x0, double *t, double *x, double a)
 }
 
 
-/**
- * @brief ルンゲクッタ法 
- * 
- * 全データを作成
- * 
- * @param imax 
- * @param dt 
- * @param x0 
- * @param t 
- * @param x 
- * @param a 
- */
 void runge_kutta(int imax, double dt, double x0, double *t, double *x, double a)
 {
     t[0] = 0.0;
@@ -69,11 +36,11 @@ void runge_kutta(int imax, double dt, double x0, double *t, double *x, double a)
         t[i+1] = t[i] + dt;
 
         k1 = dx(x[i], a);
-        k2 = dx(x[i] + dt/2*k1, a);
-        k3 = dx(x[i] + dt/2*k2, a);
+        k2 = dx(x[i] + 0.5*dt*k1, a);
+        k3 = dx(x[i] + 0.5*dt*k2, a);
         k4 = dx(x[i] + dt*k3, a);
 
-        x[i+1] = x[i] + dt/6 * (k1 + 2*k2 + 2*k3 + k4);
+        x[i+1] = x[i] + dt/6.0 * (k1 + 2.0*k2 + 2.0*k3 + k4);
     }
 }
 

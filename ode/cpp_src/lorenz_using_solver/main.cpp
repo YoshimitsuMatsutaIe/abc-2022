@@ -1,44 +1,42 @@
-/**
- * @file lorenz.cpp
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2022-02-05
- * 
- * @copyright Copyright (c) 2022
- * 
- */
-
 #include <iostream>
 #include <fstream>
 #include <array>
-#include "/usr/include/boost/numeric/odeint.hpp"
-
-
+#include <string>
+#include <boost/numeric/odeint.hpp>
 
 
 struct System
 {
-    public:
-    using state = std::array<double, 3>;
+    using state = std::array<double, 3>;  //状態ベクトル
     double p;
     double r;
     double b;
-    System(double p_, double r_, double b_):p(p_), r(r_), b(b_){};
+
+    System(double p, double r, double b)
+    {
+        this->p = p;
+        this->r = r;
+        this->b = b;
+    }
 
     void operator()(const state& x, state& dx, double t)
     {
-        dx[0] = -p*x[0] + p*x[1];
-        dx[1] = -x[0]*x[2] + r*x[0] - x[1];
-        dx[2] = x[0]*x[1] - b*x[2];
+        dx[0] = -this->p*x[0] + this->p*x[1];
+        dx[1] = -x[0]*x[2] + this->r*x[0] - x[1];
+        dx[2] = x[0]*x[1] - this->b*x[2];
     }
 };
 
-struct csv_observer
+
+struct CSV_Observer
 {
     using state = System::state;
     std::ofstream fout;
-    csv_observer(const std::string& FileName) :fout(FileName){};
+    CSV_Observer(const std::string& FileName)
+    {
+        this->fout = std::ofstream(FileName);
+    }
+    
     void operator()(const state& x, double t)
     {
         fout << t << "," << x[0] << "," << x[1] << "," << x[2] << std::endl;
@@ -47,18 +45,20 @@ struct csv_observer
 
 
 
-
 int main()
 {
     std::cout << "running..." << std::endl;
 
-    //ルンゲクッタ法
-    System sys(10.0, 28.0, 8/3);
-    System::state State = {0.0, 4.0, 28.0};
-    boost::numeric::odeint::runge_kutta_cash_karp54<System::state> Stepper;
-    csv_observer Observer("rk.csv");
+    double time_init = 1.0;
+    double time_span = 50.0;
+    double time_interval = 0.01;
+    System sys(10.0, 28.0, 8.0/3.0);
+    System::state state = {0.0, 4.0, 28.0};  //初期値
+    
+    boost::numeric::odeint::runge_kutta_cash_karp54<System::state> stepper;
+    CSV_Observer observer("rk.csv");
     boost::numeric::odeint::integrate_const(
-        Stepper, sys, State, 0.0, 50.0, 0.01, std::ref(Observer)
+        stepper, sys, state, time_init, time_span, time_interval, std::ref(observer)
     );
 
     std::cout << "done!" << std::endl;

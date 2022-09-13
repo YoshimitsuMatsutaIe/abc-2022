@@ -1,89 +1,65 @@
-/**
- * @file main.cpp
- * @brief Eigenで書いた例
- * つらい
- * @copyright Copyright (c) 2022
- * 
- */
-
 #include <iostream>
 #include <fstream>
-#include "/usr/include/eigen3/Eigen/Core"
+#include <eigen3/Eigen/Core>
 
 
-/**
- * @brief ローレンツ方程式のパラメータ
- * 
- */
-struct lorenz_param
+using Eigen::VectorXd;
+
+
+struct Lorenz
 {
     double p;
     double r;
     double b;
+
+    Lorenz(double p, double r, double b)
+    {
+        this->p = p;
+        this->r = r;
+        this->b = b;
+    }
+
+    void operator()(const VectorXd& x, VectorXd& x_dot)
+    {
+        x_dot(0) = -this->p*x(0) + this->p*x(1);
+        x_dot(1) = -x(0)*x(2) + this->r*x(0) - x(1);
+        x_dot(2) = x(0)*x(1) - this->b*x(2);
+    }
 };
 
 
 
-/**
- * @brief ローレンツ方程式
- * 
- * @param x 
- * @param x_dot 
- * @param p 
- */
-void lorenz(
-    const Eigen::Vector3d& x, Eigen::Vector3d& x_dot, struct lorenz_param& p
-)
-{
-    x_dot[0] = -p.p*x[0] + p.p*x[1];
-    x_dot[1] = -x[0]*x[2] + p.r*x[0] - x[1];
-    x_dot[2] = x[0]*x[1] - p.b*x[2];
-}
-
-
-/**
- * @brief ルンゲクッタ法
- * 
- * @param T 
- * @param dt 
- * @param x0 
- * @param p 
- */
-void runge_kutta(double T, double dt, const Eigen::Vector3d& x0, struct lorenz_param p)
-{
-    
-    Eigen::Vector3d x, k1, k2, k3, k4;
-    x = x0;
-
-    std::ofstream ofs("rk.csv");
-    ofs << "t,x,y,z" << std::endl;
-    ofs << 0.0 << "," << x[0] << "," << x[1] << "," << x[2] << std::endl;
-
-    int imax = T / dt;  // ループ回数
-    for (int i=0; i<imax; i++){
-        lorenz(x, k1, p);
-        lorenz(x + dt/2*k1, k2, p);
-        lorenz(x + dt/2*k2, k3, p);
-        lorenz(x + dt*k3, k4, p);
-        x += dt/6 *(k1 + 2*k2 + 2*k3 + k4);
-        ofs << dt*i << "," << x[0] << "," << x[1] << "," << x[2] << std::endl;
-    }
-}
-
-
 int main()
 {
-    std::cout << "running..." << std::endl;
+    using std::cout;
+    using std::endl;
+    cout << "running..." << endl;
 
-    // 初期値など
-    Eigen::Vector3d x0 = {0.0, 4.0, 28.0};
-    lorenz_param p = {10.0, 28.0, 8/3};
-    double dt = 0.01;
-    double T = 50.0;
+    const static Eigen::IOFormat CSVFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ",", "\n");
 
+    VectorXd x(3);  //状態変数
+    x << 0.0, 4.0, 28.0;  //初期値
 
-    runge_kutta(T, dt, x0, p);
+    auto lorenz = Lorenz(10.0, 28.0, 8/3);
+    
+    const double dt = 0.01;
+    const double time_span = 50.0;
 
+    VectorXd k1(3), k2(3), k3(3), k4(3);
 
-    std::cout << "done!" << std::endl;
+    std::ofstream ofs("rk.csv");  //結果のcsvファイル
+    ofs << "t,x,y,z" << endl;  //ヘッダ作成
+    ofs << 0.0 << "," << x.transpose().format(CSVFormat) << endl;  //初期値書き込み
+
+    const int imax = time_span / dt;  // ループ回数
+    for (int i=0; i<imax; ++i){
+        lorenz(x, k1);
+        lorenz(x + 0.5*dt*k1, k2);
+        lorenz(x + 0.5*dt*k2, k3);
+        lorenz(x + dt*k3, k4);
+        x += dt/6.0 * (k1 + 2.0*k2 + 2.0*k3 + k4);
+        ofs << dt*i << "," << x.transpose().format(CSVFormat) << endl;
+    }
+
+    cout << "done!" << endl;
 }
