@@ -2,7 +2,8 @@
 #include <fstream>
 #include <eigen3/Eigen/Core>
 
-
+using std::cout;
+using std::endl;
 using Eigen::VectorXd;
 
 
@@ -31,8 +32,6 @@ struct Lorenz
 
 int main()
 {
-    using std::cout;
-    using std::endl;
     cout << "running..." << endl;
 
     const static Eigen::IOFormat CSVFormat(Eigen::StreamPrecision, Eigen::DontAlignCols, ",", "\n");

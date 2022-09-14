@@ -3,11 +3,15 @@
 #include <array>
 #include <string>
 #include <boost/numeric/odeint.hpp>
+#include <eigen3/Eigen/Core>
 
+using std::cout;
+using std::endl;
 
 struct System
 {
     using state = std::array<double, 3>;  //状態ベクトル
+
     double p;
     double r;
     double b;
@@ -39,7 +43,7 @@ struct CSV_Observer
     
     void operator()(const state& x, double t)
     {
-        fout << t << "," << x[0] << "," << x[1] << "," << x[2] << std::endl;
+        fout << t << "," << x[0] << "," << x[1] << "," << x[2] << endl;
     }
 };
 
@@ -47,7 +51,9 @@ struct CSV_Observer
 
 int main()
 {
-    std::cout << "running..." << std::endl;
+    cout << "running..." << endl;
+
+    std::string csv_path = "rx.csv";  //結果の保存先
 
     double time_init = 1.0;
     double time_span = 50.0;
@@ -56,10 +62,10 @@ int main()
     System::state state = {0.0, 4.0, 28.0};  //初期値
     
     boost::numeric::odeint::runge_kutta_cash_karp54<System::state> stepper;
-    CSV_Observer observer("rk.csv");
+    CSV_Observer observer(csv_path);
     boost::numeric::odeint::integrate_const(
         stepper, sys, state, time_init, time_span, time_interval, std::ref(observer)
     );
 
-    std::cout << "done!" << std::endl;
+    cout << "done!" << endl;
 }
